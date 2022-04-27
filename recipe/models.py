@@ -8,8 +8,8 @@ User = get_user_model()
 
 
 class Comment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_comment')
-    recipe = models.ForeignKey('Recipe', on_delete=models.CASCADE, related_name='recipe_comment', blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comment_user')
+    recipe = models.ForeignKey('Recipe', on_delete=models.CASCADE, related_name='comment_recipe', blank=True)
     # article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='c_article', null=True, verbose_name="مقاله", blank=True)
     body = models.CharField(max_length=400, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
@@ -61,7 +61,7 @@ class Recipe(models.Model):
     comments = models.ManyToManyField(Comment, blank=True, related_name='recipe_comment')
 
     class Meta:
-        ordering = ('id')
+        ordering = ('id',)
 
     def get_absolute_url(self):
         return reverse("recipe:recipe_detail", kwargs={'pk': self.pk, 'slug': self.slug})

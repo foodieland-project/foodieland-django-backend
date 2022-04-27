@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'comment.apps.CommentConfig',
 
 ]
-
+AUTH_USER_MODEL = 'accounts.User'
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',

@@ -1,4 +1,5 @@
-from ..models import Category, Recipe
+from ..models import Recipe
+from core.models import Category
 from django.contrib.auth import get_user_model
 import pytest
 
@@ -31,3 +32,5 @@ def test_recipe_create():
     assert recipe.slug == 'pizza'
     assert recipe.category == category
     assert recipe.user == user
+
+

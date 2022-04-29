@@ -1,6 +1,6 @@
-import pytest
 from ..models import Category, Recipe
 from django.contrib.auth import get_user_model
+import pytest
 
 
 User = get_user_model()

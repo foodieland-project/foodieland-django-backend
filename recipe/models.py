@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from utilities.slug_title import slugify_instance_title
-
+from .managers import ActiveRecipesManager
 
 User = get_user_model()
 
@@ -19,6 +19,7 @@ class Recipe(models.Model):
     likes = models.ManyToManyField(User, blank=True, related_name='recipe_like')
     is_active = models.BooleanField(default=True)
     comments = models.ManyToManyField('core.Comment', blank=True, related_name='recipe_comment')
+    active = ActiveRecipesManager() # filters all recipies base on is_active field
 
     class Meta:
         ordering = ('id',)

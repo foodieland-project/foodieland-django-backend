@@ -41,6 +41,8 @@ class Recipe(models.Model):
         if self.slug is None:
             slugify_instance_title(self, save=False)
         super(Recipe, self).save(*args, **kwargs)
-    
+
+    def __str__(self):
+        return self.title
 
 

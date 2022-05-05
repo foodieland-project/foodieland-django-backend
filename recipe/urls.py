@@ -7,6 +7,9 @@ urlpatterns = [
     path('recipe/', views.RecipeListView.as_view(), name='recipe_list'),
     path('recipe-detail/<int:id>/<str:slug>', views.RecipeDetailView.as_view(), name='recipe_detail'),
 
+    # like
+    path('like/<int:recipe_id>/', views.RecipeLike.as_view(), name="recipe_like"),
+
     # comments
     path('comments/<int:pk>/', views.CommentListView.as_view(), name="comment-per-recipe"),
     path('comment/create/<int:recipe_id>/', views.CommentCreate.as_view(), name="recipe-create-comment"),

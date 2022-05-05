@@ -192,3 +192,15 @@ class ReplyDelete(APIView):
         reply.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+class RecipeLike(APIView):
+    permission_classes = [IsAuthenticated, ]
+
+    def post(self, request, recipe_id):
+        recipe = get_object_or_404(Recipe, id=recipe_id)
+        if recipe.likes.filter(id=request.user.id).exists():
+            recipe.likes.remove(request.user)
+        else:
+            recipe.likes.add(request.user)
+        data = recipe.likes.count()
+        return Response(data, status=status.HTTP_201_CREATED)
+

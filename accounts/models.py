@@ -34,5 +34,5 @@ class User(AbstractUser):
 
     def __str__(self):
         if self.email==None:
-            return "ERROR-CUSTOMER EMAIL IS NULL"
+            return "Email cant be none"
         return self.email

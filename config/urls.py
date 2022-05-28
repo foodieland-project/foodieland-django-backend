@@ -20,5 +20,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('api/recipe/', include('recipe.urls', namespace='recipe')),
+    path('api/blog/', include('blog.urls', namespace='blog')),
 
 ]

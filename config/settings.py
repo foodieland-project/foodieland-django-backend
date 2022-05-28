@@ -40,11 +40,14 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'corsheaders',
+    'ckeditor',
+
 
     # Local apps
     'accounts.apps.AccountsConfig',
     'core.apps.CoreConfig',
     'recipe.apps.RecipeConfig',
+    'blog.apps.BlogConfig',
 
 ]
 AUTH_USER_MODEL = 'accounts.User'
@@ -145,3 +148,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Cors Headers 
 CORS_ALLOW_ALL_ORIGINS = True
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    ],
+
+}

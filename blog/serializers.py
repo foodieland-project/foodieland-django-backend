@@ -14,10 +14,16 @@ class AuthorSerializer(serializers.ModelSerializer):
 
 class ArticleSerializer(serializers.ModelSerializer):
     author = AuthorSerializer()
+    category = serializers.SerializerMethodField()
 
     class Meta:
         model = Article
-        fields = ['id', 'author', 'category', 'title', 'description', 'cover', 'created', 'updated']
+        fields = ['id', 'slug', 'author', 'category', 'title', 'description', 'cover', 'created', 'updated']
+    
+    def get_category(self, obj):
+        return {
+            'name': obj.category.name
+        }
 
 
 class CategorySerializer(serializers.ModelSerializer):

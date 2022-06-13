@@ -4,12 +4,14 @@ from django.db import models
 from django.core.files.images import get_image_dimensions
 from ckeditor.fields import RichTextField
 from django.contrib.auth import get_user_model
-
+from .managers import ActiveArticlesManager
 User = get_user_model()
 
 
 def validate_cover(value):
-
+    """
+    validating the file size (the allowed size should be set in settings)
+    """
     size = get_image_dimensions(value)
     if size > settings.MAX_UPLOAD_ADMIN_SIZE:
         raise ValueError("Please keep file size under 2 MB")
@@ -19,6 +21,10 @@ class Category(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(max_length=100, unique=True)
     is_active = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name = "Article Category"
+        verbose_name_plural = "Article Categories"
 
     def __str__(self):
         return self.name
@@ -45,6 +51,11 @@ class Article(models.Model):
     updated = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
     objects = models.Manager()
+    active = ActiveArticlesManager()
+
+    class Meta:
+        verbose_name = "Article"
+        verbose_name_plural = "Article"
 
     def __str__(self):
-        return f'{self.author} created {self.title}'
+        return self.title

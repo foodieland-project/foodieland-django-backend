@@ -48,7 +48,7 @@ class ArticleTest(TestCase):
 
 
         # getting article/articles
-        articles = Article.objects.all()
+        articles = Article.active.all()
 
 
         # serializing article/articles
@@ -68,7 +68,7 @@ class ArticleTest(TestCase):
         # making request
         res = self.client.get(reverse('blog:article_by_category', kwargs={'category': self.category.slug}))
         # getting article by category
-        articles = Article.objects.filter(category=self.category)
+        articles = Article.active.filter(category=self.category)
 
         # serializing article 
         sz = ArticleSerializer(articles, many=True)

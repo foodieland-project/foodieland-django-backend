@@ -9,18 +9,17 @@ from .serializers import ArticleSerializer, CategorySerializer
 from utilities.permissions import IsStaffOrReadOnly, IsSuperUserMixin
 
 
-# TODO: Use get_object_or_404
 
 class ArticleListView(ListAPIView):
     """
         Shows all articles that are active (by is_active)
     """
-    queryset = Article.objects.filter(is_active=True)
+    queryset = Article.active.all()
     serializer_class = ArticleSerializer
 
 
 class ArticleDetail(RetrieveUpdateDestroyAPIView):
-    queryset = Article.objects.filter(is_active=True)
+    queryset = Article.active.all()
     serializer_class = ArticleSerializer
 
 
@@ -44,7 +43,7 @@ class ArticleCategory(APIView):
         category_model = get_object_or_404(Category, slug=category)
     
         # filtering article by category
-        article = Article.objects.filter(category=category_model)
+        article = Article.active.all()
         # serializing the queryset
         serializer = ArticleSerializer(article, many=True)
 

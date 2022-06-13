@@ -4,7 +4,7 @@ from django.db import models
 from django.core.files.images import get_image_dimensions
 from ckeditor.fields import RichTextField
 from django.contrib.auth import get_user_model
-from .managers import ActiveArticlesManager
+from .managers import ActiveManager
 User = get_user_model()
 
 
@@ -21,6 +21,8 @@ class Category(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(max_length=100, unique=True)
     is_active = models.BooleanField(default=True)
+    objects= models.Manager()
+    active = ActiveManager()
 
     class Meta:
         verbose_name = "Article Category"
@@ -51,7 +53,7 @@ class Article(models.Model):
     updated = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
     objects = models.Manager()
-    active = ActiveArticlesManager()
+    active = ActiveManager()
 
     class Meta:
         verbose_name = "Article"

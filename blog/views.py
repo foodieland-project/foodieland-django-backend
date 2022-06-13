@@ -23,7 +23,7 @@ class ArticleDetail(RetrieveUpdateDestroyAPIView):
     serializer_class = ArticleSerializer
 
 
-class CategoryViewSet(ListAPIView):
+class CategoryListView(ListAPIView):
     """
     Showing all categries
     """
@@ -43,7 +43,7 @@ class ArticleCategory(APIView):
         category_model = get_object_or_404(Category, slug=category)
     
         # filtering article by category
-        article = Article.active.all()
+        article = Article.active.filter(category=category_model)
         # serializing the queryset
         serializer = ArticleSerializer(article, many=True)
 

@@ -1,5 +1,5 @@
 from django.db import models
 
-class ActiveArticlesManager(models.Manager):
+class ActiveManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().filter(is_active=True)

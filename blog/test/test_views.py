@@ -1,13 +1,13 @@
 import json
 from ..models import Article, Category
-from ..serializers import ArticleSerializer
+from ..serializers import ArticleSerializer, CategorySerializer
 from django.contrib.auth import get_user_model
 from django.contrib.sites.models import Site
 from django.test import TestCase, Client
 from django.urls import reverse
 from rest_framework import status
 
-class ArticleTest(TestCase):
+class BlogTestView(TestCase):
     def setUp(self):
         # making client
         self.client = Client()
@@ -78,4 +78,11 @@ class ArticleTest(TestCase):
         self.assertEqual(res.data, sz.data)
 
 
-        
+    def test_category_list_view(self):
+        Category.objects.create(name='react', slug='react')
+        res = self.client.get(reverse('blog:category_list'))
+        categories = Category.active.all()
+
+        sz = CategorySerializer(categories, many=True)
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res.data, sz.data)

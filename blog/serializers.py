@@ -18,8 +18,9 @@ class ArticleSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Article
-        fields = ['id', 'slug', 'author', 'category', 'title', 'description', 'cover', 'created', 'updated']
-    
+        fields = ['id', 'slug', 'author', 'category', 'title',
+                  'description', 'cover', 'created', 'updated']
+
     def get_category(self, obj):
         return {
             'name': obj.category.name

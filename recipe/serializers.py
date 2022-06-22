@@ -22,14 +22,15 @@ class RecipeListSerializer(serializers.ModelSerializer):
 class RecipeSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField()
     # getting the counts for like field
-    recipe_likes_count = serializers.ReadOnlyField(source="likes_count") 
-    comments = serializers.HyperlinkedIdentityField(view_name="recipe:comment-replies")
-
+    recipe_likes_count = serializers.ReadOnlyField(source="likes_count")
+    comments = serializers.HyperlinkedIdentityField(
+        view_name="recipe:comment-replies")
 
     class Meta:
         model = Recipe
-        fields = ('id', 'title','user','slug','category','description','recipe','info','video','likes','is_active','comments','active','recipe_likes_count')
-    
+        fields = ('id', 'title', 'user', 'slug', 'category', 'description', 'recipe', 'info',
+                  'video', 'likes', 'is_active', 'comments', 'active', 'recipe_likes_count')
+
     def get_user(self, obj):
         """
             Shows more usefull data for user than id
@@ -38,9 +39,9 @@ class RecipeSerializer(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
-    replies = serializers.HyperlinkedIdentityField(view_name="recipe:comment-replies")
+    replies = serializers.HyperlinkedIdentityField(
+        view_name="recipe:comment-replies")
     user = serializers.SerializerMethodField("get_user")
-
 
     class Meta:
         model = Comment
@@ -51,6 +52,7 @@ class CommentSerializer(serializers.ModelSerializer):
             return obj.user.username,
         else:
             return None
+
 
 class ReplySerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField()

@@ -18,25 +18,27 @@ class IsOwnerOrReadOnly(BasePermission):
             return True
         return obj.user == request.user
 
-    
+
 class ReadOnly(BasePermission):
     def has_permission(self, request, view):
         return request.method in SAFE_METHODS
+
 
 class ProfilePermissions(BasePermission):
     def has_permission(self, request, view):
         print(request.user, '***'*100)
 
         return request.user.is_authenticated
-    
+
     def has_object_permission(self, request, view, obj):
         print(request.user, '***'*100)
 
         if request.user == obj:
             return True
-        else: 
+        else:
             return False
-        
+
+
 class IsStaffOrReadOnly(BasePermission):
     def has_permission(self, request, view):
         return bool(

@@ -1,6 +1,7 @@
 from django.utils.text import slugify
 import random
 
+
 def slugify_instance_title(instance, save=False, new_slug=None):
     if new_slug is not None:
         slug = new_slug

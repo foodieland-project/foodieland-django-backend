@@ -16,10 +16,12 @@ class Recipe(models.Model):
     recipe = models.TextField()
     info = models.TextField()
     video = models.FileField()
-    likes = models.ManyToManyField(User, blank=True, related_name='recipe_like')
+    likes = models.ManyToManyField(
+        User, blank=True, related_name='recipe_like')
     is_active = models.BooleanField(default=True)
-    comments = models.ManyToManyField('core.Comment', blank=True, related_name='recipe_comment')
-    active = ActiveRecipesManager() # filters all recipies base on is_active field
+    comments = models.ManyToManyField(
+        'core.Comment', blank=True, related_name='recipe_comment')
+    active = ActiveRecipesManager()  # filters all recipies base on is_active field
 
     class Meta:
         ordering = ('id',)
@@ -44,5 +46,3 @@ class Recipe(models.Model):
 
     def __str__(self):
         return self.title
-
-

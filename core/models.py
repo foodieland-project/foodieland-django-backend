@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from recipe.models import Recipe
 from utilities.slug_title import slugify_instance_title
-
+from blog.models import Article
 
 User = get_user_model()
 
@@ -13,8 +13,7 @@ class Category(models.Model):
         NOTE: Mabye i add it to blog model later.
     """
     title = models.CharField(max_length=100)
-    slug = models.SlugField(unique=False, allow_unicode=True)
-    
+    slug = models.SlugField(unique=True, allow_unicode=True)
 
     class Meta:
         ordering = ('title',)
@@ -28,17 +27,19 @@ class Category(models.Model):
         super(Category, self).save(*args, **kwargs)
 
 
-
 class Comment(models.Model):
     """
         The main comment model in recipe and blog pages
     """
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comment_user')
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='comment_recipe', blank=True)
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='comment_user')
+    recipe = models.ForeignKey(
+        Recipe, on_delete=models.CASCADE, related_name='comment_recipe', blank=True)
     # article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='c_article', null=True, blank=True)
     body = models.CharField(max_length=400, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
-    replies = models.ManyToManyField('Reply', blank=True, related_name='comment_replies')
+    replies = models.ManyToManyField(
+        'Reply', blank=True, related_name='comment_replies')
     is_active = models.BooleanField(default=False)
 
     def is_comment_active(self):
@@ -47,7 +48,6 @@ class Comment(models.Model):
         else:
             return False
     is_comment_active.boolean = True
-
 
     class Meta:
         ordering = ('-created',)
@@ -60,8 +60,10 @@ class Reply(models.Model):
     """
         Used for making replies on comments in recipes and blogs
     """
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_replies")
-    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name="none_replies")
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="user_replies")
+    comment = models.ForeignKey(
+        Comment, on_delete=models.CASCADE, related_name="none_replies")
     body = models.TextField(max_length=400, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     is_active = models.BooleanField(default=False)
@@ -72,3 +74,17 @@ class Reply(models.Model):
     def __str__(self):
         return self.body
 
+
+class Tag(models.Model):
+    """
+        this model is for having more control on recipe or blog posts
+    """
+    name = models.CharField(max_length=50)
+    slug = models.SlugField(unique=True, allow_unicode=True)
+    recipe = models.ForeignKey(
+        Recipe, on_delete=models.SET_NULL, null=True, blank=True)
+    article = models.ForeignKey(
+        Article, on_delete=models.SET_NULL, null=True, blank=True)
+
+    def __str__(self):
+        return self.name

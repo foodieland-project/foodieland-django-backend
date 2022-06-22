@@ -9,9 +9,11 @@ from django.utils.html import format_html
 class User(AbstractUser):
     username = models.CharField(unique=True, max_length=20)
     email = models.EmailField(max_length=125, unique=True)
-    is_author = models.BooleanField(default=False,help_text='Determines whether this user is allowed to write an article')
+    is_author = models.BooleanField(
+        default=False, help_text='Determines whether this user is allowed to write an article')
     special_user = models.DateTimeField(default=timezone.now)
-    avatar = models.ImageField(default="default-pic.jpg", upload_to="media/users-pics/", null=True, blank=True)
+    avatar = models.ImageField(
+        default="default-pic.jpg", upload_to="media/users-pics/", null=True, blank=True)
 
     def is_special_user(self):
         if self.special_user > timezone.now():
@@ -33,6 +35,6 @@ class User(AbstractUser):
     thumbnail.short_description = "thumbnail"
 
     def __str__(self):
-        if self.email==None:
+        if self.email == None:
             return "Email cant be none"
         return self.email

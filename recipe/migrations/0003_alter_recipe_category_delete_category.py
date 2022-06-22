@@ -15,7 +15,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='recipe',
             name='category',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='core.category'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to='core.category'),
         ),
         migrations.DeleteModel(
             name='Category',

@@ -17,7 +17,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Category',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(blank=True, max_length=100, null=True)),
                 ('slug', models.SlugField(allow_unicode=True, blank=True, null=True)),
             ],
@@ -28,7 +29,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Comment',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('body', models.CharField(blank=True, max_length=400, null=True)),
                 ('created', models.DateTimeField(auto_now_add=True, null=True)),
                 ('is_active', models.BooleanField(default=False)),
@@ -40,12 +42,15 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Reply',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('body', models.TextField(blank=True, max_length=400, null=True)),
                 ('created', models.DateTimeField(auto_now_add=True, null=True)),
                 ('is_active', models.BooleanField(default=False)),
-                ('comment', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='none_replies', to='recipe.comment')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='user_replies', to=settings.AUTH_USER_MODEL)),
+                ('comment', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                 related_name='none_replies', to='recipe.comment')),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                 related_name='user_replies', to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'ordering': ('-created',),
@@ -54,7 +59,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Recipe',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=250)),
                 ('slug', models.SlugField()),
                 ('description', models.TextField()),
@@ -62,10 +68,14 @@ class Migration(migrations.Migration):
                 ('info', models.TextField()),
                 ('video', models.FileField(upload_to='')),
                 ('is_active', models.BooleanField(default=True)),
-                ('category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='recipe.category')),
-                ('comments', models.ManyToManyField(blank=True, related_name='recipe_comment', to='recipe.comment')),
-                ('likes', models.ManyToManyField(blank=True, related_name='recipe_like', to=settings.AUTH_USER_MODEL)),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('category', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to='recipe.category')),
+                ('comments', models.ManyToManyField(blank=True,
+                 related_name='recipe_comment', to='recipe.comment')),
+                ('likes', models.ManyToManyField(blank=True,
+                 related_name='recipe_like', to=settings.AUTH_USER_MODEL)),
+                ('user', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'ordering': ('id',),
@@ -74,16 +84,19 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='comment',
             name='recipe',
-            field=models.ForeignKey(blank=True, on_delete=django.db.models.deletion.CASCADE, related_name='comment_recipe', to='recipe.recipe'),
+            field=models.ForeignKey(blank=True, on_delete=django.db.models.deletion.CASCADE,
+                                    related_name='comment_recipe', to='recipe.recipe'),
         ),
         migrations.AddField(
             model_name='comment',
             name='replies',
-            field=models.ManyToManyField(blank=True, related_name='comment_replies', to='recipe.reply'),
+            field=models.ManyToManyField(
+                blank=True, related_name='comment_replies', to='recipe.reply'),
         ),
         migrations.AddField(
             model_name='comment',
             name='user',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comment_user', to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                    related_name='comment_user', to=settings.AUTH_USER_MODEL),
         ),
     ]

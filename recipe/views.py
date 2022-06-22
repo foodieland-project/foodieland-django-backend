@@ -21,6 +21,9 @@ from utilities.permissions import IsOwnerOrReadOnly, IsSuperUserMixin, ReadOnly
 from .models import Recipe
 from .serializers import RecipeListSerializer, RecipeSerializer
 
+# TODO: add the familiar recipies section
+# TODO: remove pytest from recipe app and use the django test case
+
 
 class BasicPagination(PageNumberPagination):
     page_size_query_param = 'limit'
@@ -31,8 +34,9 @@ class RecipeListView(APIView):
         Shows all recipies
         TODO: i should add catching with redis in this view
     """
+
     def get(self, request):
-        # getting all results 
+        # getting all results
         recipies = Recipe.active.all()
         # serializing the queryset
         res = RecipeListSerializer(recipies, many=True)
@@ -45,15 +49,17 @@ class RecipeDetailView(APIView):
         Returns all related detail to recipe
         TODO: use catching
     """
+
     def get(self, request, id, slug):
         # searching for the object by id, slug
         recipe = Recipe.active.get(id=id, slug=slug)
         # serializing only one object
-        res = RecipeSerializer(recipe, many=False, context={'request': request})
+        res = RecipeSerializer(recipe, many=False, context={
+                               'request': request})
 
         return Response(res.data, status=status.HTTP_200_OK)
 
-    
+
 class CommentListView(APIView, PaginationHandlerMixin):
     permission_classes = [ReadOnly]
     serializer_class = CommentSerializer
@@ -192,6 +198,7 @@ class ReplyDelete(APIView):
         reply.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
 class RecipeLike(APIView):
     permission_classes = [IsAuthenticated, ]
 
@@ -203,4 +210,3 @@ class RecipeLike(APIView):
             recipe.likes.add(request.user)
         data = recipe.likes.count()
         return Response(data, status=status.HTTP_201_CREATED)
-

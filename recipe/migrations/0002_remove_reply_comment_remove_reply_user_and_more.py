@@ -22,7 +22,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='recipe',
             name='comments',
-            field=models.ManyToManyField(blank=True, related_name='recipe_comment', to='core.comment'),
+            field=models.ManyToManyField(
+                blank=True, related_name='recipe_comment', to='core.comment'),
         ),
         migrations.DeleteModel(
             name='Comment',

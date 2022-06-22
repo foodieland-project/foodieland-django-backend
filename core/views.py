@@ -17,6 +17,3 @@ from utilities.permissions import IsOwnerOrReadOnly, IsSuperUserMixin, ReadOnly
 
 # getting the User model based on setting that we defined in settings.py
 User = get_user_model()
-
-
-

@@ -12,11 +12,13 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='article',
-            options={'verbose_name': 'Article', 'verbose_name_plural': 'Article'},
+            options={'verbose_name': 'Article',
+                     'verbose_name_plural': 'Article'},
         ),
         migrations.AlterModelOptions(
             name='category',
-            options={'verbose_name': 'Article Category', 'verbose_name_plural': 'Article Categories'},
+            options={'verbose_name': 'Article Category',
+                     'verbose_name_plural': 'Article Categories'},
         ),
         migrations.RemoveField(
             model_name='category',

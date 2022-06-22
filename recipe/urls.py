@@ -8,6 +8,8 @@ urlpatterns = [
     path('recipe-detail/<int:id>/<str:slug>',
          views.RecipeDetailView.as_view(), name='recipe_detail'),
 
+    path('related-recipe/<int:recipe_id>',
+         views.RelatedRecipe.as_view(), name="related_recipe"),
     # like
     path('like/<int:recipe_id>/', views.RecipeLike.as_view(), name="recipe_like"),
 
@@ -29,4 +31,5 @@ urlpatterns = [
     path('reply/delete/<int:recipe_id>/<int:comment_id>/<int:reply_id>/',
          views.ReplyDelete.as_view(), name="reply-delete"),
     path('reply/<int:pk>/', views.ReplyListView.as_view(), name="comment-replies"),
+
 ]

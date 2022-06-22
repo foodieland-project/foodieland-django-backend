@@ -22,6 +22,7 @@ class Recipe(models.Model):
     comments = models.ManyToManyField(
         'core.Comment', blank=True, related_name='recipe_comment')
     active = ActiveRecipesManager()  # filters all recipies base on is_active field
+    objects = models.Manager()
 
     class Meta:
         ordering = ('id',)

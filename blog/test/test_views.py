@@ -24,7 +24,6 @@ class BlogTestView(TestCase):
 
     def test_article_detail_view(self):
 
-        # creating the user using payload
         article = Article.objects.create(author=self.user, category=self.category, title='this is title',
                                          slug='this-is-slug', description='this is description', cover="__init__.py")
 

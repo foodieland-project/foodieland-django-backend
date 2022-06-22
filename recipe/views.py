@@ -210,3 +210,19 @@ class RecipeLike(APIView):
             recipe.likes.add(request.user)
         data = recipe.likes.count()
         return Response(data, status=status.HTTP_201_CREATED)
+
+
+class RelatedRecipe(APIView):
+    def get(self, request, recipe_id):
+        recipe = Recipe.active.get(id=recipe_id)
+
+        tags = recipe.recipe_tag.all()
+
+        related_recipies = [i.recipe for i in tags]
+
+        # data = [i.name for i in tag]
+        # print(data)
+
+        sz = RecipeSerializer(related_recipies, many=True,
+                              context={'request': request})
+        return Response(sz.data)

@@ -82,9 +82,9 @@ class Tag(models.Model):
     name = models.CharField(max_length=50)
     slug = models.SlugField(unique=True, allow_unicode=True)
     recipe = models.ForeignKey(
-        Recipe, on_delete=models.SET_NULL, null=True, blank=True)
+        Recipe, on_delete=models.SET_NULL, null=True, blank=True, related_name="recipe_tag")
     article = models.ForeignKey(
-        Article, on_delete=models.SET_NULL, null=True, blank=True)
+        Article, on_delete=models.SET_NULL, null=True, blank=True, related_name="article_tag")
 
     def __str__(self):
         return self.name

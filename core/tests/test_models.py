@@ -79,4 +79,4 @@ class CoreTestModels(TestCase):
         self.assertEqual(comment.body, "That was great")
         self.assertEqual(comment.is_active, True)
 
-        self.assertEqual(recipe.comments, comment)
+        self.assertEqual(recipe.comment_recipe.first(), comment)

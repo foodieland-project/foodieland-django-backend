@@ -7,7 +7,15 @@ from blog.models import Article
 User = get_user_model()
 
 
-class Category(models.Model):
+class TimeStampModel(models.Model):
+    updated = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+
+class Category(TimeStampModel):
     """
         Used for Recipes
         NOTE: Mabye i add it to blog model later.
@@ -27,7 +35,7 @@ class Category(models.Model):
         super(Category, self).save(*args, **kwargs)
 
 
-class Comment(models.Model):
+class Comment(TimeStampModel):
     """
         The main comment model in recipe and blog pages
     """
@@ -37,7 +45,6 @@ class Comment(models.Model):
         Recipe, on_delete=models.CASCADE, related_name='comment_recipe', blank=True)
     # article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='c_article', null=True, blank=True)
     body = models.CharField(max_length=400, null=True, blank=True)
-    created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     replies = models.ManyToManyField(
         'Reply', blank=True, related_name='comment_replies')
     is_active = models.BooleanField(default=False)
@@ -56,7 +63,7 @@ class Comment(models.Model):
         return self.body
 
 
-class Reply(models.Model):
+class Reply(TimeStampModel):
     """
         Used for making replies on comments in recipes and blogs
     """
@@ -65,7 +72,6 @@ class Reply(models.Model):
     comment = models.ForeignKey(
         Comment, on_delete=models.CASCADE, related_name="none_replies")
     body = models.TextField(max_length=400, null=True, blank=True)
-    created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     is_active = models.BooleanField(default=False)
 
     class Meta:
@@ -75,7 +81,7 @@ class Reply(models.Model):
         return self.body
 
 
-class Tag(models.Model):
+class Tag(TimeStampModel):
     """
         this model is for having more control on recipe or blog posts
     """

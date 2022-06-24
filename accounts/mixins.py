@@ -10,14 +10,6 @@ class SuperUserAccessMixin():
             raise Http404("You can't see this page.")
 
 
-class FieldsMixin():
-    def dispatch(self, request, *args, **kwargs):
-        self.fields = [
-            'teacher', 'students', 'category', 'title', 'slug', 'description', 'image', 'is_active', 'price', 'time', 'status', 'tag', 'likes', 'comments', 'tag',
-        ]
-        return super().dispatch(request, *args, **kwargs)
-
-
 class FormValidMixin():
     def form_valid(self, form):
         if self.request.user.is_superuser:

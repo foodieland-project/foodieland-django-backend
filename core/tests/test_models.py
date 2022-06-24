@@ -75,6 +75,8 @@ class CoreTestModels(TestCase):
             is_active=True
         )
 
+
+        # checking data
         self.assertEqual(comment.user, self.user)
         self.assertEqual(comment.body, "That was great")
         self.assertEqual(comment.is_active, True)

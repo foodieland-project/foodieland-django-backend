@@ -5,7 +5,6 @@ from django.utils import timezone
 from django.utils.html import format_html
 
 
-# Create your models here.
 class User(AbstractUser):
     username = models.CharField(unique=True, max_length=20)
     email = models.EmailField(max_length=125, unique=True)
@@ -24,7 +23,7 @@ class User(AbstractUser):
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name', 'username']
+    REQUIRED_FIELDS = ['username']
 
     # backend = 'accounts.authentication.EmailBackend'
 

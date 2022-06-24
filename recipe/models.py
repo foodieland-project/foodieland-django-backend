@@ -7,7 +7,15 @@ from .managers import ActiveRecipesManager
 User = get_user_model()
 
 
-class Recipe(models.Model):
+class RecipeBase(models.Model):
+    updated = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+
+class Recipe(RecipeBase):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=250)
     slug = models.SlugField()

@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model, authenticate
 
 User = get_user_model()
 
+
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = User

@@ -1,7 +1,6 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 from django.urls import reverse
-
 from rest_framework.test import APIClient
 from rest_framework import status
 
@@ -77,7 +76,8 @@ class PublicUserApiTests(TestCase):
 
     def test_create_token_invalid_credentials(self):
         """Test that the token will create with invalid credentials or not"""
-        create_user(email="test@justfortest.com", username="testusername", password="testpass")
+        create_user(email="test@justfortest.com",
+                    username="testusername", password="testpass")
         data = {
             'email': 'test@amirmega.com',
             'username': 'Test',
@@ -101,7 +101,7 @@ class PublicUserApiTests(TestCase):
 
         self.assertNotIn('token', res.data)
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
-    
+
     def test_create_token_missing_field(self):
         """Test that email and password are required"""
         res = self.client.post(TOKEN_URL, {'email': 'none', 'password': ''})

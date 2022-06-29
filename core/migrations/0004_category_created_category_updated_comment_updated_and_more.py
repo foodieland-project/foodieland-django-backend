@@ -19,19 +19,22 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='category',
             name='updated',
-            field=models.DateTimeField(auto_now_add=True, default=django.utils.timezone.now),
+            field=models.DateTimeField(
+                auto_now_add=True, default=django.utils.timezone.now),
             preserve_default=False,
         ),
         migrations.AddField(
             model_name='comment',
             name='updated',
-            field=models.DateTimeField(auto_now_add=True, default=django.utils.timezone.now),
+            field=models.DateTimeField(
+                auto_now_add=True, default=django.utils.timezone.now),
             preserve_default=False,
         ),
         migrations.AddField(
             model_name='reply',
             name='updated',
-            field=models.DateTimeField(auto_now_add=True, default=django.utils.timezone.now),
+            field=models.DateTimeField(
+                auto_now_add=True, default=django.utils.timezone.now),
             preserve_default=False,
         ),
         migrations.AddField(
@@ -42,7 +45,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='tag',
             name='updated',
-            field=models.DateTimeField(auto_now_add=True, default=django.utils.timezone.now),
+            field=models.DateTimeField(
+                auto_now_add=True, default=django.utils.timezone.now),
             preserve_default=False,
         ),
     ]
